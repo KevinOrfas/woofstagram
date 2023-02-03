@@ -1,77 +1,85 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView, View, TextInput, Text } from 'react-native';
+import { Formik } from 'formik';
 
 const App = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmationPassword, setConfirmationPassword] = useState('');
-  const [name, setName] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [breed, setBreed] = useState('');
-  const [toy, setToy] = useState('');
-
-  function confirmPassWordMatch({ nativeEvent: { text } }) {
-    if (text !== password) {
+  function onSubmit(values) {
+    if (values.confirmationPassword !== values.password) {
       alert('Password do not match');
     }
   }
 
   return (
-    <ScrollView>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          backgroundColor: '#ecf0f1',
-        }}
-      >
-        <InputWithLabel
-          label="Email"
-          placeholder={'Type your email here'}
-          value={email}
-          onChangeText={setEmail}
-        />
-        <InputWithLabel
-          label="Password"
-          placeholder={'Type your password here'}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        <InputWithLabel
-          label="Confirm Password"
-          placeholder={'Confirm your password'}
-          value={confirmationPassword}
-          onChangeText={setConfirmationPassword}
-          secureTextEntry
-          onSubmitEditing={confirmPassWordMatch}
-        />
-        <InputWithLabel
-          label="Name"
-          placeholder={"Type your pet's name here"}
-          value={name}
-          onChangeText={setName}
-        />
-        <InputWithLabel
-          label="Date of Birth"
-          placeholder={"Type your pet's date of birth here"}
-          value={birthday}
-          onChangeText={setBirthday}
-        />
-        <InputWithLabel
-          label="Breed"
-          placeholder={"Type your pet's breed here"}
-          value={breed}
-          onChangeText={setBreed}
-        />
-        <InputWithLabel
-          label="Toy"
-          placeholder={"Type your pet's toy here"}
-          value={toy}
-          onChangeText={setToy}
-        />
-      </View>
-    </ScrollView>
+    <Formik
+      initialValues={{
+        email: '',
+        password: '',
+        confirmationPassword: '',
+        name: '',
+        birthday: '',
+        breed: '',
+        toy: '',
+      }}
+      onSubmit={onSubmit}
+    >
+      {({ handleChange, handleSubmit, values }) => (
+        <ScrollView>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              backgroundColor: '#ecf0f1',
+            }}
+          >
+            <InputWithLabel
+              label="Email"
+              placeholder="Type your email here"
+              onChangeText={handleChange('email')}
+              value={values.email}
+            />
+            <InputWithLabel
+              label="Password"
+              placeholder="Type your password here"
+              onChangeText={handleChange('password')}
+              value={values.password}
+              secureTextEntry
+            />
+            <InputWithLabel
+              label="Confirm Password"
+              placeholder="Confirm your password here"
+              onChangeText={handleChange('confirmationPassword')}
+              value={values.confirmationPassword}
+              secureTextEntry
+              onSubmitEditing={handleSubmit}
+            />
+            <InputWithLabel
+              label="Name"
+              placeholder="Type your dog's name here"
+              onChangeText={handleChange('name')}
+              value={values.name}
+            />
+            <InputWithLabel
+              label="Date of birth"
+              placeholder="Type your dog's date of birth here"
+              onChangeText={handleChange('birthday')}
+              value={values.birthday}
+            />
+            <InputWithLabel
+              label="Breed"
+              placeholder="Type your dog's breed of birth here"
+              onChangeText={handleChange('breed')}
+              value={values.breed}
+            />
+            <InputWithLabel
+              label="Toy"
+              placeholder="Type your dog's favorite toy here"
+              onChangeText={handleChange('toy')}
+              value={values.toy}
+            />
+          </View>
+        </ScrollView>
+      )}
+    </Formik>
   );
 };
 
