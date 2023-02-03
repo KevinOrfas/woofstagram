@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "woof",
-    "slug": "woof",
+    "slug": "woofstagram",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "be4e998c-dbb2-4fad-bb7f-350f88f8ce61"
+      }
+    },
+    "owner": "anastasis"
   }
 }
